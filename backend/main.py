@@ -5,7 +5,7 @@ from fastapi import Query
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
+from langchain_groq import ChatGroq
 from backend.document_ingestion import (
     partition_document,
     chunk_document,
@@ -22,7 +22,9 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+    "http://localhost:5173",
+],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -34,8 +36,10 @@ SCORE_THRESHOLD = 1.0
 TOP_K = 5
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-llm = ChatOllama(model="llama3.2:latest")
+llm = ChatGroq(
+    model="llama-3.3-70b-versatile",
+    api_key=os.getenv("GROQ_API_KEY"),
+)
 
 embeddings = HuggingFaceEmbeddings(
     model_name="sentence-transformers/all-MiniLM-L6-v2"
