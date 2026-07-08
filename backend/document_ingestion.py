@@ -13,8 +13,8 @@ from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 
 load_dotenv()
-
-# ---- Config ----
+PDF_STRATEGY = "auto"
+CHUNK_MAX_CHARACTERS = 2000
 PDF_STRATEGY = "auto"         
 CHUNK_COMBINE_UNDER = 300   
 PERSIST_DIR = "./chroma_db"
