@@ -186,7 +186,7 @@ function App() {
 
       <main className="main-content">
         <div className="chat-window">
-          {messages.length === 0 && !thinking && !typingText && (
+          {messages.length === 0 && !thinking && (
             <div className="workspace-welcome">
               <h2>Start Exploring</h2>
               <p>
@@ -251,12 +251,12 @@ function App() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              disabled={thinking || typingText !== ""}
+              disabled={thinking}
             />
             <button
               className="send-trigger"
               onClick={handleSend}
-              disabled={!input.trim() || thinking || typingText !== ""}
+              disabled={!input.trim() || thinking}
             >
               Ask
             </button>
