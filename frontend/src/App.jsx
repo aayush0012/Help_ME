@@ -127,7 +127,7 @@ function App() {
       <div className="landing-container">
         {/* Left Side: Hero and Features */}
         <div className="landing-hero">
-          <span className="landing-subtitle">Your Document Assistant</span>
+          <span className="landing-subtitle">Your AI Assistant</span>
           <h1 className="landing-logo">HelpMe</h1>
           <p className="landing-tagline">Ask questions about your PDFs</p>
           <p className="landing-description">
