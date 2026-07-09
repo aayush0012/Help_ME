@@ -126,12 +126,26 @@ function App() {
     return (
       <div className="landing-container">
         <div className="landing-card">
+          <span className="landing-subtitle">Custom AI Assistant</span>
           <h1 className="landing-logo">HelpMe</h1>
-          <p className="landing-subtitle">Custom AI Assistant</p>
           <p className="landing-description">
             Interact with your files dynamically. Upload documents, extract structured tables,
-            and get verified answers grounded directly in the text with precise page citations.
+            and query content with precise page citations.
           </p>
+          <div className="landing-features">
+            <div className="feature-item">
+              <span className="feature-dot"></span>
+              <span>Llama 3.2 Cloud Vision OCR</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-dot"></span>
+              <span>Local Semantic Embeddings</span>
+            </div>
+            <div className="feature-item">
+              <span className="feature-dot"></span>
+              <span>Direct Page Citation Verification</span>
+            </div>
+          </div>
           <button className="landing-btn" onClick={() => setShowLanding(false)}>
             Open Assistant
           </button>
