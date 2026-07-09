@@ -134,20 +134,6 @@ function App() {
             Upload any PDF document and start chatting. The assistant will search the document 
             to find answers and show you the exact page numbers they came from.
           </p>
-          <div className="landing-features">
-            <div className="feature-item">
-              <span className="feature-dash">—</span>
-              <span>Reads scanned text and files with tables</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-dash">—</span>
-              <span>Finds the right pages containing your answer</span>
-            </div>
-            <div className="feature-item">
-              <span className="feature-dash">—</span>
-              <span>Shows you exactly which page the info was taken from</span>
-            </div>
-          </div>
         </div>
 
         {/* Right Side: Action Panel */}
@@ -226,7 +212,7 @@ function App() {
               <h2>Start Exploring</h2>
               <p>
                 Upload a document on the left sidebar. Ask questions about the
-                content, and retrieve information with direct page citations.
+                content, and retrieve answers with exact page numbers.
               </p>
             </div>
           )}
@@ -242,7 +228,7 @@ function App() {
                 <div className="chat-text">{msg.text}</div>
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="sources-wrapper">
-                    <span className="sources-header">Cited Pages:</span>
+                    <span className="sources-header">Pages:</span>
                     <div className="sources-list">
                       {msg.sources.map((src, idx) => (
                         <span

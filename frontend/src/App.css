@@ -538,10 +538,10 @@ body {
   font-size: 48px;
   font-weight: 800;
   letter-spacing: -1.5px;
-  background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: -4px;
+  color: #ffffff;
+  line-height: 1.2;
+  padding: 4px 0;
+  margin-bottom: 2px;
 }
 
 /* Tagline */
