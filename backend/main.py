@@ -105,7 +105,13 @@ async def upload_pdf(file: UploadFile = File(...)):
         safe_filename = os.path.basename(file.filename)
 
         if os.path.exists(PERSIST_DIR):
-            shutil.rmtree(PERSIST_DIR, ignore_errors=True)
+            try:
+                import chromadb
+                client = chromadb.PersistentClient(path=PERSIST_DIR)
+                for col in client.list_collections():
+                    client.delete_collection(col.name)
+            except Exception as e:
+                print(f"Error resetting database collections: {e}")
 
         print("2 Saving file")
 
