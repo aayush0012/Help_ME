@@ -12,9 +12,6 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [thinking, setThinking] = useState(false);
-  const [typingText, setTypingText] = useState("");
-  const [displayedTyping, setDisplayedTyping] = useState("");
-  const [currentSources, setCurrentSources] = useState([]);
 
   const messagesEndRef = useRef(null);
 
@@ -28,38 +25,7 @@ function App() {
     if (!showLanding) {
       scrollToBottom();
     }
-  }, [messages, displayedTyping, thinking, showLanding]);
-
-  useEffect(() => {
-    if (!typingText) {
-      setDisplayedTyping("");
-      return;
-    }
-
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayedTyping(typingText.slice(0, i + 1));
-      i++;
-
-      if (i >= typingText.length) {
-        clearInterval(interval);
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: Date.now(),
-            sender: "bot",
-            text: typingText,
-            sources: currentSources,
-          },
-        ]);
-        setTypingText("");
-        setDisplayedTyping("");
-        setCurrentSources([]);
-      }
-    }, 15);
-
-    return () => clearInterval(interval);
-  }, [typingText, currentSources]);
+  }, [messages, thinking, showLanding]);
 
   const uploadFile = async () => {
     if (!file) return;
@@ -101,21 +67,35 @@ function App() {
         `${API_BASE}/chat?question=${encodeURIComponent(question)}`
       );
       setThinking(false);
-      setCurrentSources(response.data.sources || []);
-      setTypingText(response.data.answer);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          sender: "bot",
+          text: response.data.answer,
+          sources: response.data.sources || [],
+        },
+      ]);
     } catch (err) {
       console.log(err);
       setThinking(false);
       const detail = err.response?.data?.detail;
-      setCurrentSources([]);
-      setTypingText(detail || "Unable to connect to server.");
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Date.now(),
+          sender: "bot",
+          text: detail || "Unable to connect to server.",
+          sources: [],
+        },
+      ]);
     }
   };
 
   const handleKeyDown = (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      if (!thinking && !typingText) {
+      if (!thinking) {
         handleSend();
       }
     }
@@ -257,14 +237,7 @@ function App() {
             </div>
           )}
 
-          {typingText && (
-            <div className="chat-row system-row">
-              <div className="chat-bubble">
-                <div className="chat-text">{displayedTyping}</div>
-                <span className="typing-cursor"></span>
-              </div>
-            </div>
-          )}
+
 
           <div ref={messagesEndRef}></div>
         </div>
