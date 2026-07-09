@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+.vscode
+__pycache__
+node_modules
+frontend/node_modules
+frontend/dist
+backend/uploads
+backend/chroma_db
+chroma_db
+uploads
+Dockerfile
+.dockerignore

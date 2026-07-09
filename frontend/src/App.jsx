@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./App.css";
 
+const API_BASE = import.meta.env.DEV ? "http://127.0.0.1:8000" : "";
+
 function App() {
 
   const [file, setFile] = useState(null);
@@ -82,7 +84,7 @@ function App() {
     try {
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/upload",
+        `${API_BASE}/upload`,
         formData
       );
 
@@ -128,7 +130,7 @@ function App() {
     try {
 
       const response = await axios.post(
-        `http://127.0.0.1:8000/chat?question=${encodeURIComponent(question)}`
+        `${API_BASE}/chat?question=${encodeURIComponent(question)}`
       );
 
       setThinking(false);
@@ -190,7 +192,7 @@ return (
           <div>
 
             <h4>
-              {file ? file.name : "Choose PDF"}
+              {file ? file.name : "Choose PDF"} 
             </h4>
 
             <p>Click to browse</p>

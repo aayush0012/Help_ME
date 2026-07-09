@@ -1,18 +1,19 @@
 import os
 
 from langchain_chroma import Chroma
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_groq import ChatGroq
 TOP_K = 5
 
 
 def load_vectorstore():
-    embeddings = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-MiniLM-L6-v2"
+    embeddings = HuggingFaceEndpointEmbeddings(
+        model="sentence-transformers/all-MiniLM-L6-v2",
+        huggingfacehub_api_token=os.getenv("HUGGINGFACEHUB_API_TOKEN") or os.getenv("HF_TOKEN")
     )
 
     vectorstore = Chroma(
-        persist_directory="./chroma_db",
+        persist_directory=os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db"),
         embedding_function=embeddings,
     )
 
