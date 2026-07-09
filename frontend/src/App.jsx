@@ -125,9 +125,11 @@ function App() {
   if (showLanding) {
     return (
       <div className="landing-container">
-        <div className="landing-card">
+        {/* Left Side: Hero and Features */}
+        <div className="landing-hero">
           <span className="landing-subtitle">Custom AI Assistant</span>
           <h1 className="landing-logo">HelpMe</h1>
+          <p className="landing-tagline">Advanced Document Intelligence</p>
           <p className="landing-description">
             Interact with your files dynamically. Upload documents, extract structured tables,
             and query content with precise page citations.
@@ -146,9 +148,17 @@ function App() {
               <span>Direct Page Citation Verification</span>
             </div>
           </div>
-          <button className="landing-btn" onClick={() => setShowLanding(false)}>
-            Open Assistant
-          </button>
+        </div>
+
+        {/* Right Side: Action Panel */}
+        <div className="landing-action-panel">
+          <div className="action-card">
+            <h3>Get Started</h3>
+            <p>Enter the workspace to upload your files and begin exploration.</p>
+            <button className="landing-btn" onClick={() => setShowLanding(false)}>
+              Open Assistant
+            </button>
+          </div>
         </div>
       </div>
     );

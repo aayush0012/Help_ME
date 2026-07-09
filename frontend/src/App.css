@@ -468,11 +468,9 @@ body {
   }
 }
 
-/* --- Landing Entry Page (Unique & Premium Design) --- */
+/* --- Landing Entry Page (Split Screen Dashboard Landing) --- */
 .landing-container {
   display: flex;
-  align-items: center;
-  justify-content: center;
   width: 100vw;
   height: 100vh;
   background: #08090b;
@@ -481,28 +479,50 @@ body {
     radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
     radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
     radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.04) 0px, transparent 70%);
-  padding: 24px;
 }
 
-.landing-card {
-  max-width: 440px;
-  width: 100%;
-  padding: 48px 40px;
-  background: rgba(17, 18, 22, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 16px;
-  text-align: center;
+.landing-hero {
+  flex: 1.2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 
-    0 30px 60px rgba(0, 0, 0, 0.6), 
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  justify-content: center;
+  padding: 60px 80px;
+  align-items: flex-start;
+  gap: 16px;
+  max-width: 700px;
 }
 
+.landing-action-panel {
+  flex: 0.8;
+  background: #111215;
+  border-left: 1px solid #1f2127;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.action-card {
+  max-width: 320px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.action-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.action-card p {
+  font-size: 13px;
+  color: #62656c;
+  line-height: 1.5;
+}
+
+/* Subtitle Tag */
 .landing-subtitle {
   font-size: 10px;
   font-weight: 700;
@@ -516,34 +536,44 @@ body {
   display: inline-block;
 }
 
+/* Brand Name */
 .landing-logo {
-  font-size: 38px;
+  font-size: 48px;
   font-weight: 800;
-  letter-spacing: -1.2px;
+  letter-spacing: -1.5px;
   background: linear-gradient(135deg, #ffffff 40%, #a1a1aa 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-top: -4px;
+  margin-bottom: -4px;
 }
 
+/* Tagline */
+.landing-tagline {
+  font-size: 18px;
+  font-weight: 500;
+  color: #888b94;
+  letter-spacing: -0.2px;
+}
+
+/* Description text */
 .landing-description {
   font-size: 13px;
-  color: #71747e;
+  color: #62656c;
   line-height: 1.6;
-  margin-bottom: 4px;
+  max-width: 520px;
+  text-align: left;
 }
 
-/* Landing Page Feature list */
+/* Features List */
 .landing-features {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   width: 100%;
   text-align: left;
-  border-top: 1px solid rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-  padding: 16px 0;
-  margin: 4px 0;
+  border-top: 1px solid #1f2127;
+  padding-top: 20px;
+  margin-top: 10px;
 }
 
 .feature-item {
@@ -551,7 +581,7 @@ body {
   align-items: center;
   gap: 10px;
   font-size: 12px;
-  color: #8a8d98;
+  color: #888b94;
 }
 
 .feature-dot {
@@ -563,19 +593,20 @@ body {
   flex-shrink: 0;
 }
 
-/* Premium Interactive Launch Button */
+/* Launch Button */
 .landing-btn {
   width: 100%;
-  padding: 13px 24px;
+  padding: 12px 24px;
   background: #ffffff;
   color: #08090b;
   font-size: 13px;
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
   box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 10px;
 }
 
 .landing-btn:hover {
@@ -622,5 +653,28 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Landing Responsive Rules */
+@media (max-width: 900px) {
+  .landing-container {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+  }
+  .landing-hero {
+    padding: 40px 24px;
+    align-items: center;
+    text-align: center;
+  }
+  .landing-description {
+    text-align: center;
+  }
+  .landing-action-panel {
+    border-left: none;
+    border-top: 1px solid #1f2127;
+    padding: 40px 24px;
+    width: 100%;
   }
 }
