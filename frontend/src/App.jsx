@@ -127,7 +127,7 @@ function App() {
       <div className="landing-container">
         {/* Left Side: Hero and Features */}
         <div className="landing-hero">
-          <h1 className="landing-logo">HelpMe</h1>
+          <h1 className="landing-logo">HelpMe AI</h1>
           <p className="landing-subtitle">Your AI Assistant</p>
           <p className="landing-tagline">Ask questions about your PDFs</p>
           <p className="landing-description">
@@ -160,7 +160,7 @@ function App() {
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="brand-row">
-            <h1 className="brand-logo">HelpMe</h1>
+            <h1 className="brand-logo">HelpMe AI</h1>
             <button className="back-btn" onClick={() => setShowLanding(true)} title="Back to welcome page">
               Home
             </button>
