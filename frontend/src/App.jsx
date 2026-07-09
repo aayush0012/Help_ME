@@ -127,8 +127,8 @@ function App() {
       <div className="landing-container">
         {/* Left Side: Hero and Features */}
         <div className="landing-hero">
-          <span className="landing-subtitle">Your AI Assistant</span>
           <h1 className="landing-logo">HelpMe</h1>
+          <p className="landing-subtitle">Your AI Assistant</p>
           <p className="landing-tagline">Ask questions about your PDFs</p>
           <p className="landing-description">
             Upload any PDF document and start chatting. The assistant will search the document to find answers and show you the exact page numbers they came from.

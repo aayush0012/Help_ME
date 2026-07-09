@@ -538,16 +538,11 @@ body {
 
 /* Subtitle Tag (Neutral grey instead of AI-green) */
 .landing-subtitle {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   color: #888b94;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  border: 1px solid #1f2127;
-  background: #16171a;
-  padding: 4px 12px;
-  border-radius: 99px;
-  display: inline-block;
+  margin-top: -12px;
+  margin-bottom: 2px;
 }
 
 /* Brand Name */
