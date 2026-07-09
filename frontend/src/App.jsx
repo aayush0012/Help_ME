@@ -203,11 +203,13 @@ function App() {
                 msg.sender === "user" ? "user-row" : "system-row"
               }`}
             >
-              <div className="chat-bubble">
-                <div className="chat-text">{msg.text}</div>
+              <div className="chat-bubble-group">
+                <div className="chat-bubble">
+                  <div className="chat-text">{msg.text}</div>
+                </div>
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="sources-wrapper">
-                    <span className="sources-header">Pages:</span>
+                    <span className="sources-header">Sources:</span>
                     <div className="sources-list">
                       {msg.sources.map((src, idx) => (
                         <span

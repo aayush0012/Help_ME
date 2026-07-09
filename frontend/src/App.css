@@ -252,13 +252,26 @@ body {
   border-bottom-left-radius: 2px;
 }
 
-.sources-wrapper {
-  margin-top: 8px;
-  padding-top: 6px;
-  border-top: 1px solid #1f2127;
+.chat-bubble-group {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: flex-start;
+  max-width: 80%;
+}
+
+.user-row .chat-bubble-group {
+  align-items: flex-end;
+}
+
+.sources-wrapper {
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  background: #111215;
+  border: 1px solid #1f2127;
+  border-radius: 6px;
 }
 
 .sources-header {
@@ -271,25 +284,24 @@ body {
 
 .sources-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
 }
 
 .source-pill {
   font-size: 9px;
-  font-weight: 500;
-  padding: 1px 5px;
-  background: #16171a;
-  border: 1px solid #1f2127;
-  color: #888b94;
-  border-radius: 3px;
+  font-weight: 600;
+  color: #38bdf8;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  padding: 1px 6px;
+  border-radius: 4px;
   cursor: help;
-  transition: border-color 0.15s, color 0.15s;
+  transition: all 0.15s;
 }
 
 .source-pill:hover {
-  border-color: #2e3037;
-  color: #ffffff;
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.15);
 }
 
 .bottom-dock {
