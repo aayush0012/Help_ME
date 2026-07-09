@@ -65,7 +65,7 @@ Rules:
 
 1. Use only the provided context.
 2. Never use outside knowledge.
-3. Cite sources like [Source 1].
+3. Do NOT include any inline source citations or bracketed references (like [Source 1] or [Page 1]) in your text.
 4. If the answer is not present, reply exactly:
 Information not found in notes.
 5. Preserve technical terminology.

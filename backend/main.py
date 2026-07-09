@@ -219,7 +219,7 @@ Rules:
 1. Use ONLY the provided information.
 2. Do NOT use outside knowledge.
 3. If the answer exists, answer it clearly.
-4. Cite sources inline like [Source 1].
+4. Do NOT include any inline source citations or bracketed references (like [Source 1] or [Page 1]) in your text.
 5. If the answer is not present, reply exactly:
 
 Information not found in notes.
