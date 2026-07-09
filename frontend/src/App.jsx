@@ -131,9 +131,13 @@ function App() {
           <h1 className="landing-logo">HelpMe</h1>
           <p className="landing-tagline">Ask questions about your PDFs</p>
           <p className="landing-description">
-            Upload any PDF document and start chatting. The assistant will search the document 
-            to find answers and show you the exact page numbers they came from.
+            Upload any PDF document and start chatting. The assistant will search the document to find answers and show you the exact page numbers they came from.
           </p>
+          <ul className="landing-bullet-list">
+            <li>Upload and search through PDF files</li>
+            <li>Read scanned text and tables using cloud OCR</li>
+            <li>Find the exact page numbers for every answer</li>
+          </ul>
         </div>
 
         {/* Right Side: Action Panel */}
