@@ -166,11 +166,6 @@ function App() {
 
       {/* Right Panel: Content / Chat */}
       <main className="main-content">
-        <header className="chat-nav">
-          <span className="nav-status">
-            {file ? `Active File: ${file.name}` : "No active document."}
-          </span>
-        </header>
 
         <div className="chat-window">
           {messages.length === 0 && !thinking && !typingText && (
