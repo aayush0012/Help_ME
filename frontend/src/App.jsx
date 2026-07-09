@@ -127,25 +127,25 @@ function App() {
       <div className="landing-container">
         {/* Left Side: Hero and Features */}
         <div className="landing-hero">
-          <span className="landing-subtitle">Custom AI Assistant</span>
+          <span className="landing-subtitle">Your Document Assistant</span>
           <h1 className="landing-logo">HelpMe</h1>
-          <p className="landing-tagline">Advanced Document Intelligence</p>
+          <p className="landing-tagline">Ask questions about your PDFs</p>
           <p className="landing-description">
-            Interact with your files dynamically. Upload documents, extract structured tables,
-            and query content with precise page citations.
+            Upload any PDF document and start chatting. The assistant will search the document 
+            to find answers and show you the exact page numbers they came from.
           </p>
           <div className="landing-features">
             <div className="feature-item">
-              <span className="feature-dot"></span>
-              <span>Llama 3.2 Cloud Vision OCR</span>
+              <span className="feature-dash">—</span>
+              <span>Reads scanned text and files with tables</span>
             </div>
             <div className="feature-item">
-              <span className="feature-dot"></span>
-              <span>Local Semantic Embeddings</span>
+              <span className="feature-dash">—</span>
+              <span>Finds the right pages containing your answer</span>
             </div>
             <div className="feature-item">
-              <span className="feature-dot"></span>
-              <span>Direct Page Citation Verification</span>
+              <span className="feature-dash">—</span>
+              <span>Shows you exactly which page the info was taken from</span>
             </div>
           </div>
         </div>
@@ -153,10 +153,10 @@ function App() {
         {/* Right Side: Action Panel */}
         <div className="landing-action-panel">
           <div className="action-card">
-            <h3>Get Started</h3>
-            <p>Enter the workspace to upload your files and begin exploration.</p>
+            <h3>Start Now</h3>
+            <p>Go to the workspace to upload your PDF and start asking questions.</p>
             <button className="landing-btn" onClick={() => setShowLanding(false)}>
-              Open Assistant
+              Start Now
             </button>
           </div>
         </div>

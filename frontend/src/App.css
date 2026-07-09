@@ -1,8 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 body {
@@ -473,12 +475,7 @@ body {
   display: flex;
   width: 100vw;
   height: 100vh;
-  background: #08090b;
-  /* Glowing mesh gradient background */
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.08) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.05) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(139, 92, 246, 0.04) 0px, transparent 70%);
+  background: #0a0b0d;
 }
 
 .landing-hero {
@@ -522,15 +519,15 @@ body {
   line-height: 1.5;
 }
 
-/* Subtitle Tag */
+/* Subtitle Tag (Neutral grey instead of AI-green) */
 .landing-subtitle {
   font-size: 10px;
   font-weight: 700;
-  color: #10b981;
+  color: #888b94;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  border: 1px solid rgba(16, 185, 129, 0.15);
-  background: rgba(16, 185, 129, 0.06);
+  letter-spacing: 1.5px;
+  border: 1px solid #1f2127;
+  background: #16171a;
   padding: 4px 12px;
   border-radius: 99px;
   display: inline-block;
@@ -579,17 +576,15 @@ body {
 .feature-item {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   font-size: 12px;
   color: #888b94;
 }
 
-.feature-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
+/* Neutral text dashes instead of glowing green points */
+.feature-dash {
+  color: #62656c;
+  font-weight: bold;
   flex-shrink: 0;
 }
 
