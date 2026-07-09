@@ -7,6 +7,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_core.documents import Document
+import fitz
+import base64
+from langchain_groq import ChatGroq
+from langchain_core.messages import HumanMessage
 
 load_dotenv()
 
@@ -15,6 +19,71 @@ CHUNK_OVERLAP = 200
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 PERSIST_DIR = os.path.join(BASE_DIR, "chroma_db")
 EMBED_BATCH_SIZE = 100
+
+def run_cloud_ocr(file_path: str):
+    print("Opening PDF with PyMuPDF for cloud transcription...")
+    try:
+        doc = fitz.open(file_path)
+    except Exception as e:
+        print(f"Failed to open PDF with PyMuPDF: {e}")
+        return []
+
+    ocr_elements = []
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        print("Warning: GROQ_API_KEY is not set. Cloud OCR will be skipped.")
+        return []
+
+    try:
+        vision_llm = ChatGroq(
+            model="llama-3.2-11b-vision-preview",
+            api_key=api_key,
+            temperature=0
+        )
+    except Exception as e:
+        print(f"Failed to initialize ChatGroq Vision: {e}")
+        return []
+
+    for page_num in range(len(doc)):
+        print(f"  Running OCR transcription on page {page_num + 1}/{len(doc)}...")
+        try:
+            page = doc[page_num]
+            pix = page.get_pixmap(dpi=150)
+            img_bytes = pix.tobytes("png")
+
+            base64_image = base64.b64encode(img_bytes).decode("utf-8")
+
+            message = HumanMessage(
+                content=[
+                    {
+                        "type": "text", 
+                        "text": "Transcribe all text, numbers, and structured table data from this page image exactly as they appear. Do not summarize, format, or add any commentary. Output only the transcribed text."
+                    },
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": f"data:image/png;base64,{base64_image}"
+                        }
+                    }
+                ]
+            )
+
+            response = vision_llm.invoke([message])
+            transcribed_text = response.content.strip()
+
+            if transcribed_text:
+                doc_element = Document(
+                    page_content=transcribed_text,
+                    metadata={
+                        "source": os.path.basename(file_path),
+                        "page": page_num
+                    }
+                )
+                ocr_elements.append(doc_element)
+        except Exception as e:
+            print(f"  Error transcribing page {page_num + 1}: {e}")
+
+    return ocr_elements
 
 def partition_document(file_path: str):
     if not os.path.exists(file_path):
@@ -28,8 +97,22 @@ def partition_document(file_path: str):
     except Exception as e:
         raise RuntimeError(f"Failed to load PDF '{file_path}': {e}") from e
 
+    # Calculate total character count of extracted text
+    total_chars = sum(len(doc.page_content.strip()) for doc in elements)
+    print(f"Standard load complete. Total characters: {total_chars}")
+
+    # Fallback to Cloud OCR if standard text extraction yields almost nothing (scanned/image PDF)
+    if total_chars < 150:
+        print("Standard PDF loader extracted minimal text. Falling back to Cloud Vision OCR...")
+        ocr_elements = run_cloud_ocr(file_path)
+        if ocr_elements:
+            elements = ocr_elements
+            print(f"Cloud OCR complete. Pages transcribed: {len(elements)}")
+        else:
+            print("Cloud OCR returned no pages. Using standard loader output.")
+
     elapsed = time.time() - start
-    print(f"Loaded in {elapsed:.1f}s — Pages: {len(elements)}")
+    print(f"Ingestion load completed in {elapsed:.1f}s")
     return elements
 
 def chunk_document(elements):
@@ -67,7 +150,7 @@ def process_chunks(chunks, source_name):
     return documents
 
 def make_doc_id(doc: Document) -> str:
-    key = f"{doc.metadata.get('source')}::{doc.page_content}"
+    key = f"{doc.metadata.get('source')}::chunk_{doc.metadata.get('chunk_index')}::{doc.page_content}"
     return hashlib.sha256(key.encode("utf-8")).hexdigest()
 
 def create_vectorstore(documents):
