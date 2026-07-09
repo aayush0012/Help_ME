@@ -13,14 +13,11 @@ from document_ingestion import (
     process_chunks,
     create_vectorstore,
 )
-
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from dotenv import load_dotenv
 
-# Load environment variables
 load_dotenv()
-
 
 app = FastAPI()
 
@@ -33,7 +30,6 @@ TOP_K = 5
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# Configure CORS dynamically
 allowed_origins = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
@@ -45,7 +41,10 @@ if cors_env:
     if cors_env.strip() == "*":
         allowed_origins = ["*"]
     else:
-        allowed_origins = [origin.strip() for origin in cors_env.split(",") if origin.strip()]
+        allowed_origins = []
+        for origin in cors_env.split(","):
+            if origin.strip():
+                allowed_origins.append(origin.strip())
 
 app.add_middleware(
     CORSMiddleware,
@@ -55,7 +54,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Lazy model initialization getters to prevent startup crash on missing API keys
 def get_llm():
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
@@ -80,10 +78,8 @@ def get_embeddings():
         huggingfacehub_api_token=hf_token
     )
 
-
 class ChatRequest(BaseModel):
     question: str
-
 
 @app.get("/")
 def home():
@@ -92,16 +88,13 @@ def home():
         return FileResponse(index_file)
     return {"message": "RAG Backend Running"}
 
-
 @app.post("/upload")
 async def upload_pdf(file: UploadFile = File(...)):
     try:
         print("1 Upload started")
-
         if not file.filename.lower().endswith(".pdf"):
             raise HTTPException(status_code=400, detail="Only PDF files are supported")
 
-       
         safe_filename = os.path.basename(file.filename)
 
         if os.path.exists(PERSIST_DIR):
@@ -114,7 +107,6 @@ async def upload_pdf(file: UploadFile = File(...)):
                 print(f"Error resetting database collections: {e}")
 
         print("2 Saving file")
-
         file_path = os.path.join(UPLOAD_FOLDER, safe_filename)
 
         with open(file_path, "wb") as buffer:
@@ -139,7 +131,6 @@ async def upload_pdf(file: UploadFile = File(...)):
         create_vectorstore(processed_documents)
 
         print("7 Done")
-
         return {
             "message": "PDF processed successfully",
             "chunks_indexed": len(processed_documents),
@@ -151,11 +142,9 @@ async def upload_pdf(file: UploadFile = File(...)):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to process PDF")
 
-
 @app.post("/chat")
 async def chat(question: str = Query(..., description="The question to ask")):
     question = question.strip()
-
     if not question:
         raise HTTPException(
             status_code=400,
@@ -173,7 +162,6 @@ async def chat(question: str = Query(..., description="The question to ask")):
         embedding_function=get_embeddings(),
     )
 
-    # Retrieve top-k chunks
     results_with_scores = vectorstore.similarity_search_with_score(
         question,
         k=TOP_K,
@@ -200,7 +188,6 @@ async def chat(question: str = Query(..., description="The question to ask")):
     sources = []
 
     for i, (doc, score) in enumerate(results_with_scores, start=1):
-
         source = doc.metadata.get("source", "unknown")
         pages = doc.metadata.get("pages", "unknown")
 
@@ -257,25 +244,18 @@ ANSWER:
         "sources": sources,
     }
 
-
-# Serve static files from the built React frontend if it exists
 if os.path.exists(frontend_dist_path):
-    # Mount the /assets directory for JS/CSS files
     app.mount("/assets", StaticFiles(directory=os.path.join(frontend_dist_path, "assets")), name="assets")
 
-    # Catch-all route to serve index.html or static files for UI pages
     @app.get("/{catchall:path}")
     async def serve_frontend(catchall: str):
-        # Don't hijack existing API routes (upload, chat, etc.)
         if catchall.startswith("upload") or catchall.startswith("chat"):
             raise HTTPException(status_code=404, detail="Not Found")
 
-        # Try to serve requested file directly if it exists in the build dir
         file_path = os.path.join(frontend_dist_path, catchall)
         if os.path.exists(file_path) and os.path.isfile(file_path):
             return FileResponse(file_path)
 
-        # Fallback to SPA index.html
         index_file = os.path.join(frontend_dist_path, "index.html")
         if os.path.exists(index_file):
             return FileResponse(index_file)

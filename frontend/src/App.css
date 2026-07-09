@@ -18,7 +18,6 @@ body {
   height: 100vh;
 }
 
-/* Master Layout Container */
 .app-container {
   display: flex;
   height: 100vh;
@@ -26,7 +25,6 @@ body {
   background: #0a0b0d;
 }
 
-/* --- Left Sidebar (Refined Spacing & BG) --- */
 .sidebar {
   width: 280px;
   background: #111215;
@@ -79,7 +77,6 @@ body {
   line-height: 1.4;
 }
 
-/* Compact Horizontal File Selection Card */
 .compact-upload-card {
   display: flex;
   align-items: center;
@@ -130,7 +127,6 @@ body {
   color: #62656c;
 }
 
-/* Action Ingestion Button */
 .action-btn {
   width: 100%;
   padding: 8px 12px;
@@ -155,7 +151,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Status Notifications banner */
 .notification-banner {
   margin-top: 14px;
   padding: 8px 10px;
@@ -169,7 +164,6 @@ body {
   word-break: break-word;
 }
 
-/* --- Right Side Content/Chat Panel --- */
 .main-content {
   flex: 1;
   display: flex;
@@ -178,7 +172,6 @@ body {
   position: relative;
 }
 
-/* Nav Header */
 .chat-nav {
   height: 48px;
   border-bottom: 1px solid #1f2127;
@@ -194,7 +187,6 @@ body {
   color: #62656c;
 }
 
-/* Messages History Panel */
 .chat-window {
   flex: 1;
   overflow-y: auto;
@@ -204,7 +196,6 @@ body {
   gap: 16px;
 }
 
-/* Welcome page empty state */
 .workspace-welcome {
   margin: auto;
   text-align: center;
@@ -224,7 +215,6 @@ body {
   line-height: 1.5;
 }
 
-/* Chat Rows & Bubble Layouts */
 .chat-row {
   display: flex;
   width: 100%;
@@ -262,7 +252,6 @@ body {
   border-bottom-left-radius: 2px;
 }
 
-/* Cited References List */
 .sources-wrapper {
   margin-top: 8px;
   padding-top: 6px;
@@ -303,7 +292,6 @@ body {
   color: #ffffff;
 }
 
-/* Input Form Dock */
 .bottom-dock {
   padding: 16px 20px;
   background: #0a0b0d;
@@ -339,7 +327,6 @@ body {
   opacity: 0.6;
 }
 
-/* Submit trigger button */
 .send-trigger {
   padding: 0 16px;
   background: #ffffff;
@@ -363,7 +350,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Loading indicators */
 .loading-bubble {
   padding: 8px 12px;
 }
@@ -400,7 +386,6 @@ body {
   }
 }
 
-/* Blinking text typing cursor */
 .typing-cursor {
   width: 2px;
   height: 12px;
@@ -417,7 +402,6 @@ body {
   }
 }
 
-/* Scrollbar customizations */
 ::-webkit-scrollbar {
   width: 4px;
 }
@@ -435,7 +419,6 @@ body {
   background: #2e3037;
 }
 
-/* Responsive Overrides */
 @media (max-width: 768px) {
   .app-container {
     flex-direction: column;
@@ -470,7 +453,6 @@ body {
   }
 }
 
-/* --- Landing Entry Page (Split Screen Dashboard Landing) --- */
 .landing-container {
   display: flex;
   width: 100vw;
@@ -536,7 +518,6 @@ body {
   line-height: 1.5;
 }
 
-/* Subtitle Tag (Neutral grey instead of AI-green) */
 .landing-subtitle {
   font-size: 14px;
   font-weight: 500;
@@ -545,7 +526,6 @@ body {
   margin-bottom: 2px;
 }
 
-/* Brand Name */
 .landing-logo {
   font-size: 48px;
   font-weight: 800;
@@ -556,7 +536,6 @@ body {
   margin-bottom: 2px;
 }
 
-/* Tagline */
 .landing-tagline {
   font-size: 18px;
   font-weight: 500;
@@ -564,7 +543,6 @@ body {
   letter-spacing: -0.2px;
 }
 
-/* Description text */
 .landing-description {
   font-size: 13px;
   color: #62656c;
@@ -573,7 +551,6 @@ body {
   text-align: left;
 }
 
-/* Bullet list container */
 .landing-bullet-list {
   list-style-type: disc;
   padding-left: 20px;
@@ -590,12 +567,11 @@ body {
 .landing-bullet-list li {
   font-size: 11px;
   font-weight: 500;
-  color: #ffffff; /* bright white */
+  color: #ffffff; 
   line-height: 1.5;
   font-family: 'Inter', sans-serif;
 }
 
-/* Launch Button */
 .landing-btn {
   width: 100%;
   padding: 12px 24px;
@@ -617,7 +593,6 @@ body {
   opacity: 0.95;
 }
 
-/* Brand Row and Back Button */
 .brand-row {
   display: flex;
   align-items: center;
@@ -642,7 +617,6 @@ body {
   color: #ffffff;
 }
 
-/* Animations */
 .animate-fade-in {
   animation: fadeIn 0.35s ease-out;
 }
@@ -658,7 +632,6 @@ body {
   }
 }
 
-/* Landing Responsive Rules */
 @media (max-width: 900px) {
   .landing-container {
     flex-direction: column;

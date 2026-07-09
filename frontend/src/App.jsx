@@ -121,11 +121,9 @@ function App() {
     }
   };
 
-  // Render Landing Page if active
   if (showLanding) {
     return (
       <div className="landing-container">
-        {/* Left Side: Hero and Features */}
         <div className="landing-hero">
           <h1 className="landing-logo">HelpMe AI</h1>
           <p className="landing-subtitle">Your AI Assistant</p>
@@ -140,7 +138,6 @@ function App() {
           </ul>
         </div>
 
-        {/* Right Side: Action Panel */}
         <div className="landing-action-panel">
           <div className="action-card">
             <h3>Start Now</h3>
@@ -156,7 +153,6 @@ function App() {
 
   return (
     <div className="app-container animate-fade-in">
-      {/* Left Panel: Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <div className="brand-row">
@@ -208,7 +204,6 @@ function App() {
         )}
       </aside>
 
-      {/* Right Panel: Content / Chat */}
       <main className="main-content">
         <div className="chat-window">
           {messages.length === 0 && !thinking && !typingText && (

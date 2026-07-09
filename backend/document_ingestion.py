@@ -97,11 +97,12 @@ def partition_document(file_path: str):
     except Exception as e:
         raise RuntimeError(f"Failed to load PDF '{file_path}': {e}") from e
 
-    # Calculate total character count of extracted text
-    total_chars = sum(len(doc.page_content.strip()) for doc in elements)
+    total_chars = 0
+    for doc in elements:
+        total_chars += len(doc.page_content.strip())
+    
     print(f"Standard load complete. Total characters: {total_chars}")
 
-    # Fallback to Cloud OCR if standard text extraction yields almost nothing (scanned/image PDF)
     if total_chars < 150:
         print("Standard PDF loader extracted minimal text. Falling back to Cloud Vision OCR...")
         ocr_elements = run_cloud_ocr(file_path)
@@ -128,10 +129,8 @@ def process_chunks(chunks, source_name):
     print("Total chunks:", len(chunks))
 
     for i, chunk in enumerate(chunks):
-        # Extract page number (pypdf is 0-indexed, let's make it 1-indexed for display)
         page = chunk.metadata.get("page", 0) + 1
         
-        # Ensure it has sufficient content
         if len(chunk.page_content.strip()) < 10:
             print(f"Skipping empty chunk {i}")
             continue
@@ -154,7 +153,6 @@ def make_doc_id(doc: Document) -> str:
     return hashlib.sha256(key.encode("utf-8")).hexdigest()
 
 def create_vectorstore(documents):
-    # Retrieve the API Token
     hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN") or os.getenv("HF_TOKEN")
     if not hf_token:
         print("Warning: HUGGINGFACEHUB_API_TOKEN is not set. Cloud embedding calls might fail.")
@@ -169,7 +167,9 @@ def create_vectorstore(documents):
         embedding_function=embeddings,
     )
 
-    ids = [make_doc_id(doc) for doc in documents]
+    ids = []
+    for doc in documents:
+        ids.append(make_doc_id(doc))
 
     print(f"Inserting {len(documents)} documents in batches of {EMBED_BATCH_SIZE}...")
 
