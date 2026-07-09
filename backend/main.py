@@ -187,6 +187,7 @@ async def chat(question: str = Query(..., description="The question to ask")):
 
     context_parts = []
     sources = []
+    seen_pages = set()
 
     for i, (doc, score) in enumerate(results_with_scores, start=1):
         source = doc.metadata.get("source", "unknown")
@@ -196,13 +197,15 @@ async def chat(question: str = Query(..., description="The question to ask")):
             f"[Source {i} - {source}, page(s) {pages}]\n{doc.page_content}"
         )
 
-        sources.append(
-            {
-                "source": source,
-                "pages": pages,
-                "distance": round(float(score), 4),
-            }
-        )
+        if pages not in seen_pages:
+            seen_pages.add(pages)
+            sources.append(
+                {
+                    "source": source,
+                    "pages": pages,
+                    "distance": round(float(score), 4),
+                }
+            )
 
     context = "\n\n".join(context_parts)
 
