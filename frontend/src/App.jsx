@@ -209,7 +209,6 @@ function App() {
                 </div>
                 {msg.sources && msg.sources.length > 0 && (
                   <div className="sources-wrapper">
-                    <span className="sources-header">Sources:</span>
                     <div className="sources-list">
                       {msg.sources.map((src, idx) => (
                         <span
