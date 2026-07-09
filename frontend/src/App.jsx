@@ -5,6 +5,7 @@ import "./App.css";
 const API_BASE = import.meta.env.DEV ? "http://127.0.0.1:8000" : "";
 
 function App() {
+  const [showLanding, setShowLanding] = useState(true);
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
   const [input, setInput] = useState("");
@@ -24,8 +25,10 @@ function App() {
   };
 
   useEffect(() => {
-    scrollToBottom();
-  }, [messages, displayedTyping, thinking]);
+    if (!showLanding) {
+      scrollToBottom();
+    }
+  }, [messages, displayedTyping, thinking, showLanding]);
 
   useEffect(() => {
     if (!typingText) {
@@ -118,12 +121,36 @@ function App() {
     }
   };
 
+  // Render Landing Page if active
+  if (showLanding) {
+    return (
+      <div className="landing-container">
+        <div className="landing-card">
+          <h1 className="landing-logo">HelpMe</h1>
+          <p className="landing-subtitle">Custom AI Assistant</p>
+          <p className="landing-description">
+            Interact with your files dynamically. Upload documents, extract structured tables,
+            and get verified answers grounded directly in the text with precise page citations.
+          </p>
+          <button className="landing-btn" onClick={() => setShowLanding(false)}>
+            Open Assistant
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="app-container">
+    <div className="app-container animate-fade-in">
       {/* Left Panel: Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h1 className="brand-logo">HelpMe</h1>
+          <div className="brand-row">
+            <h1 className="brand-logo">HelpMe</h1>
+            <button className="back-btn" onClick={() => setShowLanding(true)} title="Back to welcome page">
+              Home
+            </button>
+          </div>
           <p className="brand-subtitle">Document Search & RAG System</p>
         </div>
 
@@ -137,7 +164,10 @@ function App() {
             <input
               type="file"
               accept="application/pdf"
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+                setMessage("");
+              }}
             />
             <span className="upload-icon">📄</span>
             <div className="upload-details">
@@ -166,7 +196,6 @@ function App() {
 
       {/* Right Panel: Content / Chat */}
       <main className="main-content">
-
         <div className="chat-window">
           {messages.length === 0 && !thinking && !typingText && (
             <div className="workspace-welcome">

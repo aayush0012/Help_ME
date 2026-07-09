@@ -467,3 +467,109 @@ body {
     padding: 12px;
   }
 }
+
+/* --- Landing Entry Page --- */
+.landing-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: #0a0b0d;
+  padding: 24px;
+}
+
+.landing-card {
+  max-width: 440px;
+  width: 100%;
+  padding: 40px;
+  background: #111215;
+  border: 1px solid #1f2127;
+  border-radius: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.landing-logo {
+  font-size: 36px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+.landing-subtitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888b94;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: -8px;
+}
+
+.landing-description {
+  font-size: 12px;
+  color: #62656c;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.landing-btn {
+  padding: 12px 32px;
+  background: #ffffff;
+  color: #0a0b0d;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.landing-btn:hover {
+  opacity: 0.9;
+}
+
+/* Brand Row and Back Button */
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.back-btn {
+  background: transparent;
+  color: #62656c;
+  border: 1px solid #1f2127;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.back-btn:hover {
+  border-color: #2e3037;
+  color: #ffffff;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
